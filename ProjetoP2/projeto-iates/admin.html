@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Login</title>
+    <link rel="shortcut icon" href="images/barco2.png" type="image/x-icon" />
+    <link rel="stylesheet" href="css/default.css" />
+  </head>
+
+  <body>
+    <div class="page">
+      <header>
+        <div id="title">
+          <img src="images/barco1.png" alt="ícone de barco" />
+          <div class="headtitle">
+            <h1>Luxo</h1>
+            <h2>Área Administrativa</h2>
+          </div>
+        </div>
+        <nav>
+          <ul class="navmenu">
+            <li><a href="index.html">Página inicial</a></li>
+            <li><a href="aluguel.html">Aluguel de iates</a></li>
+            <li><a href="destinos.html">Destinos</a></li>
+            <li><a href="tripulacao.html">Tripulação</a></li>
+            <li><a href="contato.html" class="accent">Contato</a></li>
+            <li><a href="admin.html">login</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main>
+        <div class="pagtitle">
+          <div class="bgtitle"></div>
+          <h2>Login Admin</h2>
+        </div>
+
+        <form id="loginForm">
+          <div class="entry">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" required />
+          </div>
+
+          <div class="entry">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" required />
+          </div>
+
+          <div class="buttons">
+            <button type="submit" class="button">Entrar</button>
+          </div>
+        </form>
+
+        <p id="erroMensagem" style="color: red; display: none;">E-mail e Senha inválidos.</p>
+      </main>
+    </div>
+
+    <footer>
+      <p>© 2023 por Luxo aluguel de iates</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/jquery-3.6.4.min.js"></script>
+    <script src="js/api.js"></script>
+
+    <script>
+      // Função para realizar o login e validação
+      document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Evita o envio padrão do formulário
+
+        // Captura os valores dos campos
+        const email = document.getElementById("email").value.trim();
+        const senha = document.getElementById("senha").value.trim();
+
+        // Verifica se os campos estão preenchidos
+        if (!email || !senha) {
+          alert("Por favor, preencha todos os campos!");
+          return;
+        }
+
+        // Cria o objeto para validar o login
+        const objLoginSenha = {
+          email: email,
+          senha: senha
+        };
+
+        // Chama a função de validação
+        const autenticado = validarUsuario(objLoginSenha);
+
+        // Verifica a resposta da validação
+        if (autenticado) {
+          // Redireciona para a página de mensagens
+          window.location.href = "mensagens.html"; // A página mensagens.html será carregada
+        } else {
+          // Exibe a mensagem de erro
+          document.getElementById("erroMensagem").style.display = "block";
+        }
+      });
+    </script>
+  </body>
+</html>
